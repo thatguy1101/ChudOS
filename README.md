@@ -8,7 +8,7 @@
 
 [![Based on Arch Linux](https://img.shields.io/badge/Based%20on-Arch%20Linux-1793D1?style=for-the-badge&logo=archlinux&logoColor=white)](https://archlinux.org/)
 [![Desktop Environment](https://img.shields.io/badge/Desktop-KDE%20Plasma-1D99F3?style=for-the-badge&logo=kde&logoColor=white)](https://kde.org/plasma-desktop/)
-[![Status](https://img.shields.io/badge/Status-Early%20Development-orange?style=for-the-badge)](#-project-status)
+[![Status](https://img.shields.io/badge/Status-Early%20Development-orange?style=for-the-badge)](#project-status)
 
 ---
 
@@ -18,149 +18,142 @@
 
 **ChudOS** is an Arch Linux-based distribution designed to deliver a polished, developer-focused desktop without sacrificing customisation, performance, or everyday usability.
 
-Built on the flexibility of Arch Linux and the power of KDE Plasma, ChudOS aims to combine a premium desktop experience with practical development tools, gaming support, and a collection of purpose-built system applications.
+Built on the flexibility of Arch Linux and the power of KDE Plasma, ChudOS combines a premium desktop experience with practical development tools, gaming support, and a collection of purpose-built system applications.
 
-Its defining feature is **Dopamine Profiles**: configurable desktop experiences that let users change the look, feel, sounds, animations, and behaviour of their system to suit their workflow.
+Its defining feature is **Dopamine Profiles**: configurable desktop experiences that change the look, feel, sounds, animations, and behaviour of the system to suit your workflow.
 
-From a clean, distraction-free development environment to a more expressive and animated desktop, ChudOS is designed to make Linux feel personal.
+## Project Status
+
+**ChudOS is in early development. The code for a bootable, installable image is written, but no ISO has been boot-tested yet.**
+
+| Area | State |
+|---|---|
+| Live ISO profile (Archiso, UEFI, KDE Plasma, auto-login) | Written. Package builds verified on Arch. **ISO build and boot not yet verified.** |
+| Graphical installer | Written and unit-tested against fakes. **Never run on a real disk or VM.** |
+| ChudOS apps (Welcome, Profiles, Control Centre, Monitor, Store) | Written and unit-tested. Effects on a real Plasma session and a real pacman are **unverified**. |
+| Licence, public package repository, Secure Boot, encryption | Not done |
+
+Nothing in this README should be treated as working until it has been tested on real hardware or a VM. See [docs/TESTING.md](docs/TESTING.md) for exactly what is and is not verified.
 
 ## Features
 
-### Custom Desktop Experience
+### Installer
 
-- A cohesive ChudOS visual identity.
-- Custom branding, themes, icons, and wallpapers.
-- Smooth animations and carefully designed visual effects.
-- Extensive desktop customisation through KDE Plasma.
-- A clean, premium default appearance.
+A simple graphical installer on the live image (double-click **Install ChudOS**), in place of Arch's text installer:
+
+- Step-by-step wizard: disk, name and password, time zone, language and keyboard.
+- Whole-disk erase only (UEFI, GPT, 1 GiB EFI partition + ext4, systemd-boot, zram swap). No dual-boot yet.
+- Nothing is preselected, and you must type the disk name to confirm the erase.
+- The window runs as a normal user. A separate root-only backend re-checks everything and refuses to run outside the live medium.
+- Like the Arch ISO, **Ctrl+Alt+F3 to F6** open a terminal; Ctrl+Alt+F1/F2 returns to the desktop.
+- ChudOS packages are bundled in the ISO and installed offline. Arch packages are downloaded, so an internet connection is required.
 
 ### Dopamine Profiles
 
-Customisable desktop profiles designed around different workflows and experiences.
+Profiles change real KDE settings, not just themes. Built-in profiles:
 
 | Profile | Description |
 |---|---|
 | **Default** | A polished, balanced desktop for everyday use. |
-| **Hyper** | More expressive animations, vibrant colours, and configurable sound effects. |
+| **Hyper** | More expressive animations, vibrant colours, and sound cues. |
 | **Lock In** | A distraction-minimised environment for focused development. |
-| **Gaming** | Convenient access to games, performance information, and gaming-related settings. |
-| **Zen** | A calmer desktop with restrained visuals and minimal decorative sounds. |
-| **Custom** | Build, configure, and save your own desktop experience. |
+| **Gaming** | Convenient access to gaming tools and settings. |
+| **Zen** | A calmer desktop with restrained visuals and minimal sounds. |
 
-Profiles are intended to control real desktop settings, not just themes. The planned profile system includes configurable animations, sound effects, individual volume controls, visual effects, and other supported preferences.
-
-### Developer-Focused
-
-ChudOS aims to provide a convenient development environment with support for:
-
-- Git and GitHub workflows.
-- Python, Java, JavaScript, and TypeScript.
-- C, C++, and Rust.
-- Terminal-based development.
-- Build tools and development utilities.
-- Containers and project workflows.
-
-The goal is to make common development tasks accessible without requiring users to configure everything manually.
-
-### Gaming Support
-
-ChudOS is designed for everyday gaming and moderate gaming workloads.
-
-Planned support includes:
-
-- Steam and Proton.
-- Minecraft Java Edition.
-- Modded Minecraft and Java runtime management.
-- Gaming-related performance monitoring.
-- Convenient access to gaming tools and applications.
-
-ChudOS is not intended to be a specialised, maximum-performance AAA gaming distribution. Gaming features will complement its primary focus on development and desktop usability.
+You can also create custom profiles, import and export them, and a failed apply is rolled back.
 
 ### Custom System Applications
 
-ChudOS aims to develop its own collection of integrated desktop utilities.
-
 | Application | Purpose |
 |---|---|
-| **ChudOS Welcome** | First-run setup, onboarding, and useful shortcuts. |
-| **ChudOS Control Centre** | A central interface for ChudOS-specific settings. |
-| **ChudOS Profiles** | Create, manage, and switch desktop profiles. |
-| **ChudOS Monitor** | View system resources and performance information. |
-| **ChudOS Store** | Discover and manage applications through supported package-management interfaces. |
+| **ChudOS Welcome** | First-run shortcuts. Also offers "Install ChudOS" on the live image. |
+| **ChudOS Control Centre** | Overview, appearance, profiles, sound, developer, gaming and system pages, with real CPU/RAM/disk/update data. |
+| **ChudOS Profiles** | Create, manage and switch profiles (GUI and `chudos-profile` CLI). |
+| **ChudOS Monitor** | CPU, memory, storage and network. GPU is shown as unavailable rather than faked. |
+| **ChudOS Store** | Search, install and remove packages through pacman, with `pkexec` for privileged steps. Never runs as root. |
 
-These applications will be developed incrementally as the underlying distribution takes shape.
+### Developer and Gaming Support
+
+Optional package sets (installed on request, not forced on everyone):
+
+- **Developer:** gcc, make, cmake, gdb, Node.js, Python, Rust (rustup), Java, Podman, Neovim.
+- **Gaming:** Steam, GameMode, MangoHud, Prism Launcher (Minecraft), Java runtimes, Vulkan tools, NVIDIA drivers.
+
+ChudOS is not a maximum-performance AAA gaming distribution; gaming complements its focus on development and desktop usability.
+
+## Building and Trying It
+
+You need an Arch Linux machine (or the Docker script below).
+
+```
+sudo pacman -S --needed archiso base-devel git python
+./tools/build-iso/build.sh check
+./tools/build-iso/build.sh packages        # normal user, not root
+sudo ./tools/build-iso/build.sh iso        # output: out/chudos-<date>.iso
+```
+
+On any Linux host with Docker: `./tools/build-iso/docker-build.sh` (untested).
+
+Try it in a VM first (EFI enabled, 4 GB RAM, 30 GB disk). Only flash a USB stick for a real PC after a VM install works, because the installer **erases the whole disk you pick**. Details: [docs/BUILDING.md](docs/BUILDING.md) and [docs/INSTALLATION.md](docs/INSTALLATION.md).
 
 ## Technology Stack
 
 | Component | Technology |
 |---|---|
 | Base distribution | Arch Linux |
-| Desktop environment | KDE Plasma |
-| Display protocol | Wayland, with XWayland compatibility |
-| Installation image | Archiso |
+| Desktop environment | KDE Plasma (Wayland session, XWayland compatibility) |
+| Installation image | Archiso (UEFI, systemd-boot) |
+| Installer | Python + PySide6, following the Arch installation guide |
 | Package management | pacman |
-| GUI development | Python and PySide6, where appropriate |
-| System integration | Linux utilities, KDE interfaces, and systemd where needed |
-| Version control | Git |
+| GUI development | Python and PySide6 |
+| System integration | KDE interfaces, systemd, standard Linux tools |
 
-ChudOS builds on existing Linux technologies rather than reinventing them unnecessarily. The objective is to create a cohesive distribution through thoughtful integration, custom software, and carefully selected defaults.
+ChudOS builds on existing Linux technologies rather than reinventing them: no custom kernel, no custom package manager.
 
-## Project Goals
+## Known Limitations
 
-- Deliver a bootable, installable ChudOS distribution.
-- Establish a consistent visual identity.
-- Develop a genuinely functional Dopamine Profiles system.
-- Build useful, integrated desktop applications.
-- Provide a convenient developer environment.
-- Support everyday gaming and modded Minecraft.
-- Keep the system responsive and reasonably lightweight.
-- Make customisation accessible without requiring constant manual configuration.
-- Maintain clear documentation, safe system operations, and a reliable build process.
+- Installed systems do not receive updates to the ChudOS packages until a public, signed repository exists.
+- UEFI only. No BIOS boot, dual-boot, disk encryption, Secure Boot or snapshots.
+- No NVIDIA drivers in the live image (Intel/AMD graphics only).
+- Boot splash and SDDM theming are not done.
 
-## Project Status
+## Development
 
-**ChudOS is in early development.**
+Checks that run on any machine:
 
-The project is being developed incrementally, beginning with the distribution foundation and progressing towards custom desktop functionality, system utilities, and a complete installation experience.
+```
+python3 tools/validation/validate.py
+python3 -m pytest -q tests
+shellcheck tools/build-iso/build.sh tools/build-iso/docker-build.sh system/defaults/usr/lib/chudos/apply-defaults
+```
 
-Features described in this README represent the project's goals and planned functionality. Individual features should not be considered implemented or stable until they are available in the codebase and have been tested.
-
-Installation instructions and release information will be published as the project matures.
+Docs: [Architecture](docs/ARCHITECTURE.md) · [Decisions](docs/DECISIONS.md) · [Testing](docs/TESTING.md) · [Roadmap](docs/ROADMAP.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) · [Developer & gaming](docs/DEVELOPER-GAMING.md) · [Release status](docs/RELEASE-CANDIDATE.md)
 
 ## Development Philosophy
 
-ChudOS follows a few core principles:
-
-- **Functionality first:** Real, working features over superficial demonstrations.
-- **Customisation without compromise:** Extensive configuration while preserving reliability.
-- **Performance matters:** Avoid unnecessary background services and excessive resource usage.
-- **Built for developers:** Make development workflows convenient and practical.
-- **Personal by design:** Let users shape their desktop around their preferences.
-- **Built on Linux:** Reuse reliable existing technologies wherever they make sense.
+- **Functionality first:** real, working features over superficial demonstrations.
+- **Honest status:** a feature is not "working" until it has been tested.
+- **Safe by default:** graphical apps never run as root; destructive actions need explicit confirmation.
+- **Built on Linux:** reuse reliable existing technologies.
+- **Personal by design:** let users shape their desktop around their preferences.
 
 ## Contributing
 
-ChudOS is under active development, and its architecture and feature set may evolve as the project progresses.
-
-Bug reports, technical feedback, and suggestions are welcome as the project becomes more established.
-
-Please review the project's contribution guidelines before submitting changes.
+Bug reports and feedback are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## Disclaimer
 
-ChudOS is an independent project based on Arch Linux. It is not an official Arch Linux or KDE project.
-
-Arch Linux, KDE Plasma, and other referenced technologies remain the property of their respective owners.
+ChudOS is an independent project based on Arch Linux. It is not an official Arch Linux or KDE project. Arch Linux, KDE Plasma, and other referenced technologies remain the property of their respective owners.
 
 ## License
 
-The project's licensing terms will be documented here once established.
+Not chosen yet. Package metadata currently says GPL-3.0-or-later as a placeholder.
 
 ---
 
 <div align="center">
 
-**ChudOS — Linux, built around you.**
+**ChudOS: Linux, built around you.**
 
 *Made for developers. Designed for you.*
 
