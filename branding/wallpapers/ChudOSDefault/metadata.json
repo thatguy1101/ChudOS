@@ -1,0 +1,12 @@
+{
+  "KPlugin": {
+    "Id": "ChudOSDefault",
+    "Name": "ChudOS Default",
+    "Authors": [
+      {
+        "Name": "ChudOS Project"
+      }
+    ],
+    "License": "GPL-3.0-or-later"
+  }
+}

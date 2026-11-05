@@ -1,0 +1,3 @@
+NAME="ChudOS"
+VERSION="@CHUDOS_VERSION@"
+BASE="Arch Linux"

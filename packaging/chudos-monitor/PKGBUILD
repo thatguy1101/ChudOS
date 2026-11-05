@@ -1,0 +1,23 @@
+# Maintainer: ChudOS Project
+pkgname=chudos-monitor
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='ChudOS Monitor: system information library and lightweight monitor window'
+arch=('any')
+url='https://example.invalid/chudos'  # TODO(project): replace once a public home exists
+license=('GPL-3.0-or-later')
+depends=('python' 'pyside6')
+optdepends=('pacman-contrib: checkupdates and paccache for update/cleanup previews')
+options=('!strip')
+
+package() {
+  local root="${startdir}/../.."
+  install -d "${pkgdir}/usr/lib/chudos/monitor"
+  cp -a "${root}/applications/chudos-monitor/chudos_monitor" "${pkgdir}/usr/lib/chudos/monitor/"
+  find "${pkgdir}/usr/lib/chudos/monitor" -name '__pycache__' -prune -exec rm -rf {} +
+  install -Dm755 /dev/stdin "${pkgdir}/usr/bin/chudos-monitor" <<'LAUNCH'
+#!/bin/sh
+PYTHONPATH=/usr/lib/chudos/monitor${PYTHONPATH:+:$PYTHONPATH} exec /usr/bin/python3 -m chudos_monitor "$@"
+LAUNCH
+  install -Dm644 "${root}/applications/chudos-monitor/chudos-monitor.desktop" "${pkgdir}/usr/share/applications/chudos-monitor.desktop"
+}

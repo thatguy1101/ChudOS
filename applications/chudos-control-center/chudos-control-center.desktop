@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ChudOS Control Centre
+Comment=Profiles, sound, developer and gaming settings
+Exec=chudos-control-center
+Icon=chudos
+Terminal=false
+Categories=Settings;System;

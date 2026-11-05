@@ -1,0 +1,13 @@
+{
+  "description": "Vivid accent, faster animations, louder effects.",
+  "format_version": 1,
+  "id": "hyper",
+  "name": "Hyper",
+  "settings": {
+    "appearance.accent_color": "#ff5c8a",
+    "effects.animation_speed": 1.5,
+    "effects.blur": true,
+    "sound.enabled": true,
+    "sound.volume": 70
+  }
+}

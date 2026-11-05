@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Install ChudOS
+Comment=Erase a disk and install ChudOS (live medium only)
+Exec=chudos-installer
+Icon=system-software-install
+Terminal=false
+Categories=System;

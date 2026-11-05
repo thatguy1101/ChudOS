@@ -1,0 +1,33 @@
+# Maintainer: ChudOS Project
+pkgname=chudos-profiles
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='ChudOS Dopamine Profiles engine and chudos-profile command'
+arch=('any')
+url='https://example.invalid/chudos'  # TODO(project): replace once a public home exists
+license=('GPL-3.0-or-later')
+depends=('python' 'pyside6' 'kconfig' 'plasma-workspace')
+optdepends=('pipewire: play decorative sounds (pw-play)'
+            'libpulse: play decorative sounds (paplay fallback)'
+            'qt6-tools: qdbus6 for live KWin reload')
+options=('!strip')
+
+package() {
+  local root="${startdir}/../.."
+  install -d "${pkgdir}/usr/lib/chudos/profiles-engine"
+  cp -a "${root}/applications/chudos-profiles/chudos_profiles" "${pkgdir}/usr/lib/chudos/profiles-engine/"
+  find "${pkgdir}/usr/lib/chudos/profiles-engine" -name '__pycache__' -prune -exec rm -rf {} +
+  install -Dm755 /dev/stdin "${pkgdir}/usr/bin/chudos-profile" <<'LAUNCH'
+#!/bin/sh
+PYTHONPATH=/usr/lib/chudos/profiles-engine${PYTHONPATH:+:$PYTHONPATH} exec /usr/bin/python3 -m chudos_profiles "$@"
+LAUNCH
+  install -Dm755 /dev/stdin "${pkgdir}/usr/bin/chudos-profiles-gui" <<'LAUNCH'
+#!/bin/sh
+PYTHONPATH=/usr/lib/chudos/profiles-engine${PYTHONPATH:+:$PYTHONPATH} exec /usr/bin/python3 -m chudos_profiles.gui "$@"
+LAUNCH
+  install -Dm644 "${root}/applications/chudos-profiles/chudos-profiles.desktop" \
+    "${pkgdir}/usr/share/applications/chudos-profiles.desktop"
+  install -d "${pkgdir}/usr/share/chudos/profiles" "${pkgdir}/usr/share/chudos/sounds"
+  install -m644 "${root}"/profiles/*.json "${pkgdir}/usr/share/chudos/profiles/"
+  install -m644 "${root}"/branding/sounds/*.wav "${pkgdir}/usr/share/chudos/sounds/"
+}

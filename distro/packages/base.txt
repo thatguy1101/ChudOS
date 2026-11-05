@@ -1,0 +1,20 @@
+# Base system: in the live image AND expected in the installed system.
+base
+linux
+linux-firmware
+amd-ucode
+intel-ucode
+mkinitcpio
+sudo
+nano
+git
+openssh
+networkmanager
+man-db
+less
+e2fsprogs
+dosfstools
+btrfs-progs
+efibootmgr
+# Compressed-RAM swap, configured by the installer (no swap partition).
+zram-generator

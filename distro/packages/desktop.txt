@@ -1,0 +1,42 @@
+# KDE Plasma desktop: live image and installed system.
+# Deliberately NOT plasma-meta / kde-applications: keep the default image lean.
+plasma-desktop
+plasma-nm
+plasma-pa
+kscreen
+powerdevil
+breeze
+breeze-gtk
+kde-gtk-config
+xdg-desktop-portal-kde
+sddm
+xorg-server
+xorg-xwayland
+qt6-wayland
+pipewire
+pipewire-pulse
+wireplumber
+mesa
+vulkan-icd-loader
+vulkan-radeon
+vulkan-intel
+noto-fonts
+noto-fonts-emoji
+konsole
+dolphin
+kate
+ark
+firefox
+# polkit: privilege prompt for the Store (pkexec). Pulled in by plasma anyway; listed on purpose.
+polkit
+# Required by chudos-welcome (python bindings for Qt 6).
+pyside6
+# pacman-contrib provides checkupdates (update status in the Control Centre).
+pacman-contrib
+# ChudOS packages, built locally from this repository (see packaging/).
+chudos-defaults
+chudos-welcome
+chudos-profiles
+chudos-monitor
+chudos-control-center
+chudos-store

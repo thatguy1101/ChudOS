@@ -1,0 +1,15 @@
+# NOT in the ISO. Developer tiers for the Control Centre / docs. Install on demand (sudo pacman -S ...).
+# Essential/recommended tools are detected by the Control Centre (see tools.py DEV_TOOLS).
+# --- recommended
+gcc
+make
+cmake
+gdb
+nodejs
+npm
+jdk-openjdk
+python-pip
+# --- optional
+rustup
+podman
+neovim

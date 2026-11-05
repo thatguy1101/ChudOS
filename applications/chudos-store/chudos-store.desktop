@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ChudOS Store
+Comment=Find and install apps from the Arch repositories
+Exec=chudos-store-gui
+Icon=chudos
+Terminal=false
+Categories=System;PackageManager;

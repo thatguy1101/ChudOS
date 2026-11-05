@@ -1,0 +1,12 @@
+# NOT in the ISO. Gaming support is optional and hardware-dependent (see docs/DEVELOPER-GAMING.md).
+# steam is in [multilib], which ChudOS does NOT enable for you.
+steam
+gamemode
+mangohud
+vulkan-tools
+prismlauncher
+# Java runtimes: Minecraft versions need specific Java versions. Install the one your version requires.
+jre17-openjdk
+# NVIDIA (only if you have an NVIDIA GPU; pairs with the stock 'linux' kernel):
+nvidia-open
+nvidia-utils

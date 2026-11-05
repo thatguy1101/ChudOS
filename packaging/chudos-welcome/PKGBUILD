@@ -1,0 +1,27 @@
+# Maintainer: ChudOS Project
+pkgname=chudos-welcome
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='ChudOS first-run Welcome application'
+arch=('any')
+url='https://example.invalid/chudos'  # TODO(project): replace once a public home exists
+license=('GPL-3.0-or-later')
+depends=('python' 'pyside6' 'chudos-defaults')
+optdepends=('chudos-control-center: Control Centre shortcut' 'chudos-profiles: profile picker shortcut' 'konsole: terminal shortcut')
+options=('!strip')
+
+package() {
+  local root="${startdir}/../.."
+  local app="${root}/applications/chudos-welcome"
+  install -d "${pkgdir}/usr/lib/chudos/welcome"
+  cp -a "${app}/chudos_welcome" "${pkgdir}/usr/lib/chudos/welcome/"
+  find "${pkgdir}/usr/lib/chudos/welcome" -name '__pycache__' -prune -exec rm -rf {} +
+  install -Dm755 /dev/stdin "${pkgdir}/usr/bin/chudos-welcome" <<'LAUNCH'
+#!/bin/sh
+PYTHONPATH=/usr/lib/chudos/welcome${PYTHONPATH:+:$PYTHONPATH} exec /usr/bin/python3 -m chudos_welcome "$@"
+LAUNCH
+  install -Dm644 "${app}/chudos-welcome.desktop" \
+    "${pkgdir}/usr/share/applications/chudos-welcome.desktop"
+  install -Dm644 "${app}/chudos-welcome-autostart.desktop" \
+    "${pkgdir}/etc/xdg/autostart/chudos-welcome.desktop"
+}

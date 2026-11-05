@@ -1,0 +1,13 @@
+{
+  "description": "Clean, moderate animation, subtle sounds.",
+  "format_version": 1,
+  "id": "default",
+  "name": "Default",
+  "settings": {
+    "appearance.accent_color": "#6c8cff",
+    "effects.animation_speed": 1.0,
+    "effects.blur": true,
+    "sound.enabled": true,
+    "sound.volume": 40
+  }
+}

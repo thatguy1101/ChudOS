@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ChudOS Welcome
+Comment=Get started with ChudOS
+Exec=chudos-welcome --force
+Icon=chudos
+Terminal=false
+Categories=System;

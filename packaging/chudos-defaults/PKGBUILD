@@ -1,0 +1,22 @@
+# Maintainer: ChudOS Project
+# Builds from the local checkout (no network sources). Run via tools/build-iso/build.sh packages.
+pkgname=chudos-defaults
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='ChudOS branding, wallpaper and first-login desktop defaults'
+arch=('any')
+url='https://example.invalid/chudos'  # TODO(project): replace once a public home exists
+license=('GPL-3.0-or-later')
+depends=('plasma-desktop' 'plasma-workspace' 'bash')
+options=('!strip')
+
+package() {
+  local root="${startdir}/../.."
+  cp -a "${root}/system/defaults/." "${pkgdir}/"
+  sed -i "s/@CHUDOS_VERSION@/${pkgver}/" "${pkgdir}/etc/chudos-release"
+  install -d "${pkgdir}/usr/share/wallpapers"
+  cp -a "${root}/branding/wallpapers/ChudOSDefault" "${pkgdir}/usr/share/wallpapers/"
+  install -Dm644 "${root}/branding/logos/chudos.svg" \
+    "${pkgdir}/usr/share/icons/hicolor/scalable/apps/chudos.svg"
+  chmod 755 "${pkgdir}/usr/lib/chudos/apply-defaults"
+}

@@ -1,0 +1,28 @@
+# Maintainer: ChudOS Project
+pkgname=chudos-installer
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='ChudOS graphical installer (live medium only): whole-disk UEFI install'
+arch=('any')
+url='https://example.invalid/chudos'  # TODO(project): replace once a public home exists
+license=('GPL-3.0-or-later')
+# Everything the backend runs: partitioning, formatting, pacstrap/arch-chroot, network check, sudo for the window -> backend step.
+depends=('python' 'pyside6' 'util-linux' 'gptfdisk' 'parted' 'dosfstools' 'e2fsprogs' 'arch-install-scripts' 'networkmanager' 'sudo')
+options=('!strip')
+
+package() {
+  local root="${startdir}/../.."
+  local app="${root}/applications/chudos-installer"
+  install -d "${pkgdir}/usr/lib/chudos/installer"
+  cp -a "${app}/chudos_installer" "${pkgdir}/usr/lib/chudos/installer/"
+  find "${pkgdir}/usr/lib/chudos/installer" -name '__pycache__' -prune -exec rm -rf {} +
+  install -Dm755 /dev/stdin "${pkgdir}/usr/bin/chudos-installer" <<'LAUNCH'
+#!/bin/sh
+PYTHONPATH=/usr/lib/chudos/installer${PYTHONPATH:+:$PYTHONPATH} exec /usr/bin/python3 -m chudos_installer "$@"
+LAUNCH
+  install -Dm755 /dev/stdin "${pkgdir}/usr/bin/chudos-install-backend" <<'LAUNCH'
+#!/bin/sh
+PYTHONPATH=/usr/lib/chudos/installer${PYTHONPATH:+:$PYTHONPATH} exec /usr/bin/python3 -m chudos_installer.backend "$@"
+LAUNCH
+  install -Dm644 "${app}/chudos-installer.desktop" "${pkgdir}/usr/share/applications/chudos-installer.desktop"
+}

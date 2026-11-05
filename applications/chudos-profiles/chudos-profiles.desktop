@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ChudOS Profiles
+Comment=Switch and edit Dopamine Profiles
+Exec=chudos-profiles-gui
+Icon=chudos
+Terminal=false
+Categories=Settings;

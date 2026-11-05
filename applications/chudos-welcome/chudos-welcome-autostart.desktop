@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=ChudOS Welcome (first run)
+Exec=chudos-welcome
+Terminal=false
+NoDisplay=true
+X-KDE-autostart-after=panel

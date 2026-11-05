@@ -1,0 +1,13 @@
+{
+  "description": "Reduced effects, quiet decorative sounds.",
+  "format_version": 1,
+  "id": "gaming",
+  "name": "Gaming",
+  "settings": {
+    "appearance.accent_color": "#3ddc84",
+    "effects.animation_speed": 0,
+    "effects.blur": false,
+    "sound.enabled": true,
+    "sound.volume": 30
+  }
+}

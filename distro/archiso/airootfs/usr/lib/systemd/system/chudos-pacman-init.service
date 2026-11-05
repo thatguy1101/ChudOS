@@ -1,0 +1,13 @@
+[Unit]
+Description=Initialise the pacman keyring (live medium only)
+Documentation=https://wiki.archlinux.org/title/Pacman/Package_signing
+# The installer's pacstrap copies this keyring into the new system; without it signature checks fail.
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/pacman-key --init
+ExecStart=/usr/bin/pacman-key --populate archlinux
+
+[Install]
+WantedBy=multi-user.target

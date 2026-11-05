@@ -1,0 +1,13 @@
+{
+  "description": "Minimal distractions: no animations, no blur, no decorative sounds.",
+  "format_version": 1,
+  "id": "lock-in",
+  "name": "Lock In",
+  "settings": {
+    "appearance.accent_color": "#6c8cff",
+    "effects.animation_speed": 0,
+    "effects.blur": false,
+    "sound.enabled": false,
+    "sound.volume": 0
+  }
+}

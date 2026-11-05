@@ -1,0 +1,4 @@
+ChudOS live session (prototype). Based on Arch Linux and KDE Plasma.
+Install: double-click "Install ChudOS" on the desktop, or run: chudos-installer
+Terminals: Ctrl+Alt+F3..F6 (back to the desktop: Ctrl+Alt+F1 or F2). User "chud", no password, passwordless sudo (live only).
+Text-mode fallback installer: sudo archinstall

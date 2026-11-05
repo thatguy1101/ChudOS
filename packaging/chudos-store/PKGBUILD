@@ -1,0 +1,27 @@
+# Maintainer: ChudOS Project
+pkgname=chudos-store
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='ChudOS Store: safe graphical front end for pacman'
+arch=('any')
+url='https://example.invalid/chudos'  # TODO(project): replace once a public home exists
+license=('GPL-3.0-or-later')
+depends=('python' 'pyside6' 'pacman' 'polkit')
+options=('!strip')
+
+package() {
+  local root="${startdir}/../.."
+  local app="${root}/applications/chudos-store"
+  install -d "${pkgdir}/usr/lib/chudos/store"
+  cp -a "${app}/chudos_store" "${pkgdir}/usr/lib/chudos/store/"
+  find "${pkgdir}/usr/lib/chudos/store" -name '__pycache__' -prune -exec rm -rf {} +
+  install -Dm755 /dev/stdin "${pkgdir}/usr/bin/chudos-store" <<'LAUNCH'
+#!/bin/sh
+PYTHONPATH=/usr/lib/chudos/store${PYTHONPATH:+:$PYTHONPATH} exec /usr/bin/python3 -m chudos_store "$@"
+LAUNCH
+  install -Dm755 /dev/stdin "${pkgdir}/usr/bin/chudos-store-gui" <<'LAUNCH'
+#!/bin/sh
+PYTHONPATH=/usr/lib/chudos/store${PYTHONPATH:+:$PYTHONPATH} exec /usr/bin/python3 -m chudos_store.gui "$@"
+LAUNCH
+  install -Dm644 "${app}/chudos-store.desktop" "${pkgdir}/usr/share/applications/chudos-store.desktop"
+}

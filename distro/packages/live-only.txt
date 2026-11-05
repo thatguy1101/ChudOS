@@ -1,0 +1,10 @@
+# Needed only by the live/install medium. NOT meant for the installed system.
+mkinitcpio-archiso
+archinstall
+arch-install-scripts
+parted
+gptfdisk
+cryptsetup
+squashfs-tools
+# The graphical installer (built from this repo, comes from the [chudos] repo). archinstall stays as a text-mode fallback.
+chudos-installer

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ChudOS first-login defaults
+Comment=Applies the ChudOS wallpaper once per user
+Exec=/usr/lib/chudos/apply-defaults
+Terminal=false
+NoDisplay=true
+X-KDE-autostart-after=panel

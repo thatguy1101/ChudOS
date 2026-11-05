@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Applies ChudOS desktop defaults once per user, through the Plasma-provided
+# command line tools (no direct editing of Plasma's internal config files).
+#
+# A marker file is written only if every step succeeded, so a failed run is
+# retried at the next login instead of being silently skipped forever.
+set -u
+
+readonly WALLPAPER_DIR="/usr/share/wallpapers/ChudOSDefault"
+readonly STATE_DIR="${XDG_STATE_HOME:-${HOME}/.local/state}/chudos"
+readonly MARKER="${STATE_DIR}/defaults-applied-v1"
+
+log() { printf 'chudos-apply-defaults: %s\n' "$*" >&2; }
+
+[ -e "${MARKER}" ] && exit 0
+
+if ! command -v plasma-apply-wallpaperimage >/dev/null 2>&1; then
+    log "plasma-apply-wallpaperimage not found; skipping (will retry next login)"
+    exit 0
+fi
+if [ ! -d "${WALLPAPER_DIR}" ]; then
+    log "wallpaper not installed at ${WALLPAPER_DIR}; skipping"
+    exit 0
+fi
+
+# The shell may still be starting when the autostart entry fires: retry briefly.
+applied=0
+for _ in 1 2 3 4 5 6 7 8 9 10; do
+    if plasma-apply-wallpaperimage "${WALLPAPER_DIR}" >/dev/null 2>&1; then
+        applied=1
+        break
+    fi
+    sleep 2
+done
+
+if [ "${applied}" -ne 1 ]; then
+    log "could not apply wallpaper; will retry next login"
+    exit 0
+fi
+
+mkdir -p "${STATE_DIR}" && : >"${MARKER}"

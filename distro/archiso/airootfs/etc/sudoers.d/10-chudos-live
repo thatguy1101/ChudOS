@@ -1,0 +1,2 @@
+# Live session only. The installed system must NOT ship this file.
+chud ALL=(ALL:ALL) NOPASSWD: ALL

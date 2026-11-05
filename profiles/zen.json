@@ -1,0 +1,13 @@
+{
+  "description": "Muted accent, gentle (slower) transitions, very quiet.",
+  "format_version": 1,
+  "id": "zen",
+  "name": "Zen",
+  "settings": {
+    "appearance.accent_color": "#8fa7a0",
+    "effects.animation_speed": 0.75,
+    "effects.blur": true,
+    "sound.enabled": true,
+    "sound.volume": 20
+  }
+}

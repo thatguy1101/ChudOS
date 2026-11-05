@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ChudOS Monitor
+Comment=CPU, memory, storage and network at a glance
+Exec=chudos-monitor
+Icon=chudos
+Terminal=false
+Categories=System;Monitor;
